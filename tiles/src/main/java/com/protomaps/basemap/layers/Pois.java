@@ -50,7 +50,7 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
         (!sf.hasTag("historic", "district")))) {
       String kind = "other";
       String kindDetail = "";
-      Integer minZoom = 15;
+      Integer minZoom = 14;
 
       String wikidata = sf.getString("wikidata");
       if (wikidata != null) {
@@ -82,10 +82,10 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
         minZoom = 13;
       } else if (sf.hasTag("amenity", "school")) {
         kind = sf.getString("amenity");
-        minZoom = 15;
+        minZoom = 14;
       } else if (sf.hasTag("amenity", "cafe")) {
         kind = sf.getString("amenity");
-        minZoom = 15;
+        minZoom = 14;
       } else if (sf.hasTag("landuse", "cemetery")) {
         kind = sf.getString("landuse");
         minZoom = 14;
@@ -106,7 +106,7 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
         minZoom = 14;
       } else if (sf.hasTag("tourism", "attraction", "camp_site", "hotel")) {
         kind = sf.getString("tourism");
-        minZoom = 15;
+        minZoom = 14;
       } else if (sf.hasTag("highway", "bus_stop")) {
         kind = sf.getString("highway");
         minZoom = 17;
@@ -115,7 +115,7 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
         minZoom = 13;
       } else {
         // Avoid problem of too many "other" kinds
-        // All these will default to min_zoom of 15
+        // All these will default to min_zoom of 14
         // If a more specific min_zoom is needed (or sanitize kind values)
         // then add new logic in section above
         if (sf.hasTag("amenity")) {
@@ -312,7 +312,7 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
           } else if (wayArea > 5) {
             minZoom = 14;
           } else {
-            minZoom = 15;
+            minZoom = 14;
           }
 
           // Hack for weird San Francisco university
@@ -341,7 +341,7 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
           } else if (wayArea > 0.25) {
             minZoom = 14;
           } else if (wayArea > 0.01) {
-            minZoom = 15;
+            minZoom = 14;
           } else if (wayArea > 0.001) {
             minZoom = 16;
           } else {
@@ -361,14 +361,14 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
           } else if (wayArea > 0.1) {
             minZoom = 14;
           } else if (wayArea > 0.01) {
-            minZoom = 15;
+            minZoom = 14;
           } else {
             minZoom = 16;
           }
           // Typically for "building" derived label placements for shops and other businesses
         } else if (kind.equals("allotments")) {
           if (wayArea > 0.01) {
-            minZoom = 15;
+            minZoom = 14;
           } else {
             minZoom = 16;
           }
@@ -452,8 +452,8 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
           .setAttr("elevation", sf.getString("ele"))
           // Extra OSM tags for certain kinds of places
           // These are duplicate of what's in the kind_detail tag
-          .setBufferPixels(8)
-          .setZoomRange(Math.min(15, minZoom), 15);
+          .setZoomRange(Math.min(14, minZoom), 14)
+          .setBufferPixels(128);
 
         // Core Tilezen schema properties
         if (!kindDetail.isEmpty()) {
@@ -467,8 +467,8 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
         polyLabelPosition.setSortKey(minZoom * 1000);
 
         // Even with the categorical zoom bucketing above, we end up with too dense a point feature spread in downtown
-        // areas, so cull the labels which wouldn't label at earlier zooms than the max_zoom of 15
-        polyLabelPosition.setPointLabelGridSizeAndLimit(14, 8, 1);
+        // areas, so cull the labels which wouldn't label at earlier zooms than the max_zoom of 14
+        polyLabelPosition.setPointLabelGridSizeAndLimit(13, 8, 1);
 
       } else if (sf.isPoint()) {
         var pointFeature = features.point(this.name())
@@ -483,8 +483,8 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
           // Core OSM tags for different kinds of places
           // Special airport only tag (to indicate if it's an airport with regular commercial flights)
           .setAttr("iata", sf.getString("iata"))
-          .setBufferPixels(8)
-          .setZoomRange(Math.min(minZoom, 15), 15);
+          .setZoomRange(Math.min(minZoom, 14), 14)
+          .setBufferPixels(128);
 
         // Core Tilezen schema properties
         if (!kindDetail.isEmpty()) {
@@ -529,8 +529,8 @@ public class Pois implements ForwardingProfile.LayerPostProcessor {
         pointFeature.setSortKey(minZoom * 1000);
 
         // Even with the categorical zoom bucketing above, we end up with too dense a point feature spread in downtown
-        // areas, so cull the labels which wouldn't label at earlier zooms than the max_zoom of 15
-        pointFeature.setPointLabelGridSizeAndLimit(14, 8, 1);
+        // areas, so cull the labels which wouldn't label at earlier zooms than the max_zoom of 14
+        pointFeature.setPointLabelGridSizeAndLimit(13, 8, 1);
       }
     }
   }

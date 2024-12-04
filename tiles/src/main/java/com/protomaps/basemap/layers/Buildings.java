@@ -87,7 +87,7 @@ public class Buildings implements ForwardingProfile.LayerPostProcessor {
         // NOTE: Height is quantized by zoom in a post-process step
         .setAttr(HEIGHT_KEY, height.height())
         .setAttr("sort_rank", 400)
-        .setZoomRange(minZoom, 15);
+        .setZoomRange(minZoom, 14);
 
       if (kind.equals("building_part")) {
         // We don't need to set WithMinzoom because that's implicate with the ZoomRange
@@ -116,7 +116,7 @@ public class Buildings implements ForwardingProfile.LayerPostProcessor {
 
   @Override
   public List<VectorTile.Feature> postProcess(int zoom, List<VectorTile.Feature> items) throws GeometryException {
-    if (zoom == 15) {
+    if (zoom == 14) {
       List<VectorTile.Feature> buildings = new ArrayList<>();
 
       // deduplicate addresses
@@ -139,10 +139,10 @@ public class Buildings implements ForwardingProfile.LayerPostProcessor {
     }
     items = Area.filterArea(items, 0);
 
-    if (zoom >= 15)
+    if (zoom >= 14)
       return items;
 
-    // quantize height by zoom when less than max_zoom 15 to facilitate better feature merging
+    // quantize height by zoom when less than max_zoom 14 to facilitate better feature merging
     for (var item : items) {
       if (item.tags().containsKey(HEIGHT_KEY)) {
         var height = (double) item.tags().get(HEIGHT_KEY);
@@ -156,10 +156,6 @@ public class Buildings implements ForwardingProfile.LayerPostProcessor {
           // at zoom 13 round height to nearest 10 meters
           if (zoom == 13) {
             height = quantizeVal(height, 10);
-          } else
-          // at zoom 14 round height to nearest 5 meters
-          if (zoom == 14) {
-            height = quantizeVal(height, 5);
           }
 
           item.tags().put(HEIGHT_KEY, height);

@@ -154,7 +154,7 @@ public class Basemap extends ForwardingProfile {
   }
 
   static void run(Arguments args) throws IOException {
-    args = args.orElse(Arguments.of("maxzoom", 15));
+    args = args.orElse(Arguments.of("maxzoom", 14));
 
     Path dataDir = Path.of("data");
     Path sourcesDir = dataDir.resolve("sources");

@@ -397,7 +397,7 @@ public class Water implements ForwardingProfile.LayerPostProcessor {
 
     // points from polygons
     if (sf.hasTag("name") && sf.canBePolygon()) {
-      int nameMinZoom = 15;
+      int nameMinZoom = 14;
       Double wayArea = 0.0;
 
       try {

@@ -41,7 +41,7 @@ class PoisTest extends LayerTest {
     // results form multiple layer classes. This may mean the test breaks when other layer classes are changed.
     assertFeatures(15,
       List.of(Map.of("kind", "allotments"),
-        Map.of("kind", "allotments", "min_zoom", 16, "name", "Kleingartenverein Kartoffel")),
+        Map.of("kind", "allotments", "min_zoom", 15, "name", "Kleingartenverein Kartoffel")),
       process(SimpleFeature.create(
         newPolygon(0, 0, 0, 1, 1, 1, 1, 0, 0, 0),
         new HashMap<>(Map.of("landuse", "allotments", "name", "Kleingartenverein Kartoffel")),

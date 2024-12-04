@@ -254,7 +254,7 @@ public class Landuse implements ForwardingProfile.LayerPostProcessor {
         .setAttr("sort_rank", 189)
         // NOTE: (nvkelso 20230622) Consider zoom 5 instead...
         //       But to match Protomaps v2 we do earlier
-        .setZoomRange(2, 15)
+        .setZoomRange(2, 14)
         .setMinPixelSize(2.0);
 
     }
@@ -269,7 +269,7 @@ public class Landuse implements ForwardingProfile.LayerPostProcessor {
 
   @Override
   public List<VectorTile.Feature> postProcess(int zoom, List<VectorTile.Feature> items) throws GeometryException {
-    if (zoom == 15)
+    if (zoom == 14)
       return items;
     int minArea = 400 / (4096 * 4096) * (256 * 256);
     if (zoom == 6)
